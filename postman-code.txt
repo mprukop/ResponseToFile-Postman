@@ -1,0 +1,25 @@
+let opts = {
+    requestName: request.name || request.url,
+    fileExtension: 'pdf',
+    mode: 'writeFile', // Change this to any function of the fs library of node to use it.
+    uniqueIdentifier: 'waddup',
+    responseData: pm.response.text(),
+    options: {
+        encoding: 'binary'
+    }
+};
+
+setTimeout(() => {
+    pm.sendRequest({
+        url: 'http://localhost:3000/write',
+        method: 'POST',
+        header: 'Content-Type:application/pdf',
+        encoding: 'binary',
+        body: {
+            mode: 'raw',
+            raw: pm.response.text()
+        }
+    }, function (err, res) {
+        console.log(res);
+    });
+}, 5000);
